@@ -59,10 +59,7 @@ module.exports = {
       {
         selector: "interface",
         format: ["PascalCase"],
-        custom: {
-          regex: "^I[A-Z]",
-          match: false,
-        },
+        prefix: ["I"],
       },
     ],
     // 厳密等価演算子を強制

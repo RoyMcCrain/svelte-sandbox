@@ -1,5 +1,5 @@
 import type { Request, EndpointOutput } from "@sveltejs/kit";
-import type { Locals } from "$lib/types";
+import type { ILocals } from "$lib/types";
 
 /*
   This module is used by the /todos.json and /todos/[uid].json
@@ -15,7 +15,7 @@ import type { Locals } from "$lib/types";
 const base = "https://api.svelte.dev";
 
 export async function api(
-  request: Request<Locals>,
+  request: Request<ILocals>,
   resource: string,
   data?: { [key: string]: unknown }
 ): Promise<EndpointOutput> {

@@ -1,9 +1,9 @@
 import { api } from "./_api";
 import type { RequestHandler } from "@sveltejs/kit";
-import type { Locals } from "$lib/types";
+import type { ILocals } from "$lib/types";
 
 // GET /todos.json
-export const get: RequestHandler<Locals> = async (request) => {
+export const get: RequestHandler<ILocals> = async (request) => {
   // request.locals.userid comes from src/hooks.js
   const response = await api(request, `todos/${request.locals.userid}`);
 
@@ -17,7 +17,7 @@ export const get: RequestHandler<Locals> = async (request) => {
 };
 
 // POST /todos.json
-export const post: RequestHandler<Locals, FormData> = async (request) => {
+export const post: RequestHandler<ILocals, FormData> = async (request) => {
   const response = await api(request, `todos/${request.locals.userid}`, {
     // because index.svelte posts a FormData object,
     // request.body is _also_ a (readonly) FormData
