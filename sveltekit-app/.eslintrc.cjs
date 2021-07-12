@@ -24,7 +24,8 @@ module.exports = {
   },
   rules: {
     // 使ってない変数を残さない（_varsはチェックしない）
-    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
     // import type を使うルール
     "@typescript-eslint/consistent-type-imports": ["error"],
     "@typescript-eslint/naming-convention": [
@@ -33,6 +34,7 @@ module.exports = {
       {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
       },
       // TypeはPascalCase
       {
@@ -43,10 +45,6 @@ module.exports = {
       {
         selector: "class",
         format: ["PascalCase"],
-        custom: {
-          regex: "send|start|find",
-          match: false,
-        },
       },
       // // booleanの変数はprefixをつける
       {
