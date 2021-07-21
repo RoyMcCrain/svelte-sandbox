@@ -51,6 +51,6 @@ export async function api(
 
   return {
     status: res.status,
-    body: await res.json(),
+    body: (await res.json()) as EndpointOutput["body"],
   };
 }

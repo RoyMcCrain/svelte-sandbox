@@ -1,30 +1,35 @@
 module.exports = {
-  root: true,
-  parser: "@typescript-eslint/parser",
+  env: {
+    browser: true,
+    es2020: true,
+  },
+  parser: "@typescript-eslint/parser", // add the TypeScript parser
+  plugins: [
+    "svelte3",
+    "@typescript-eslint", // add the TypeScript plugin
+  ],
+  overrides: [
+    {
+      files: ["*.svelte"],
+      processor: "svelte3/svelte3",
+    },
+  ],
+  parserOptions: {
+    project: ["./tsconfig.json"],
+    extraFileExtensions: [".svelte"],
+  },
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
   ],
-  plugins: ["svelte3", "@typescript-eslint"],
-  ignorePatterns: ["*.cjs"],
-  overrides: [{ files: ["*.svelte"], processor: "svelte3/svelte3" }],
-  settings: {
-    "svelte3/typescript": () => require("typescript"),
-  },
-  parserOptions: {
-    project: "./tsconfig.json",
-    sourceType: "module",
-    ecmaVersion: 2020,
-  },
-  env: {
-    browser: true,
-    es2017: true,
-    node: true,
-  },
   rules: {
     // 使ってない変数を残さない（_varsはチェックしない）
-    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
+    ],
     // import type を使うルール
     "@typescript-eslint/consistent-type-imports": ["error"],
     "@typescript-eslint/naming-convention": [
@@ -33,6 +38,7 @@ module.exports = {
       {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
       },
       // TypeはPascalCase
       {
@@ -43,10 +49,6 @@ module.exports = {
       {
         selector: "class",
         format: ["PascalCase"],
-        custom: {
-          regex: "send|start|find",
-          match: false,
-        },
       },
       // // booleanの変数はprefixをつける
       {
@@ -66,5 +68,8 @@ module.exports = {
     eqeqeq: "error",
     // caseのdefaultを必ずつける
     "default-case": "error",
+  },
+  settings: {
+    "svelte3/typescript": () => require("typescript"),
   },
 };
